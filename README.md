@@ -1,52 +1,26 @@
-# **Motor Vehicle Collision Analysis 🚗💥**
+# **Motor Vehicle Collision Analysis**
 
 ## **Project Overview**
-This project analyzes **motor vehicle collision data** from four major cities: **Austin, Chicago, Montgomery, and New York City**. The objective is to create an **ETL pipeline** to integrate disparate datasets, perform necessary transformations, and load the processed data into a **dimensional model** for analysis. The final output includes **interactive dashboards in Power BI and Tableau**, providing insights into accident trends, high-risk areas, injury patterns, and contributing factors.
+Worked with over 3 million records in developing a motor vehicle collision analysis platform based on accidents occured in Austin, Chicago, Montgomery and New York City using government provided datasets. The project involved data profiling, standardizing and integrating data from multiple sources with different schemas, followed by dimensional modeling to organize data into facts and dimensions. Interactive dashboards were designed to provide insights into accident trends, high-risk areas, temporal analysis, injury patterns and contributing factors.
 
-Key objectives:
-- Standardizing and integrating data from multiple sources with different schemas.
-- Building a structured **data warehouse** using **Snowflake**.
-- Implementing **dimensional modeling** to optimize analytics.
-- Creating dashboards to visualize accident statistics and patterns.
+- Tools Used: Alteryx, Microsoft Excel, Azure Data Factory, Talend, ER Studio, Snowflake, SQL, PowerBI, Tableau 
 
----
-
-## **Tools & Technologies Used**
-The following tools and technologies were used in the project:
-
-| **Component**         | **Tools Used**                     |
-|----------------------|--------------------------------|
-| **Data Extraction & Staging** | Azure Data Factory (ADF) |
-| **Data Profiling**   | Alteryx                        |
-| **Data Transformation & Cleaning** | Talend |
-| **Data Storage & Warehousing** | Snowflake                     |
-| **Dimensional Modeling** | ER Studio                     |
-| **Visualization**    | Tableau, Power BI              |
-
----
 
 ## **Datasets Overview**
 The analysis is based on publicly available **motor vehicle collision datasets** from city government sources:  
 
-| **City**      | **No. of Columns** | **No. of Rows** | **Source** |
-|--------------|-----------------|----------------|------------|
-| **Austin**   | 43              | 212,834        | [Austin Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5/about_data) |
-| **Chicago**  | 48              | 896,756        | [Chicago Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if/about_data) |
-| **NYC**      | 29              | 2,139,048      | [NYC Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data) |
-| **Montgomery** | 37             | 107,003        | [Montgomery Data](https://data.montgomerycountymd.gov/Public-Safety/Crash-Reporting-Incidents-Data/bhju-22kf/about_data) |
+| **City**      | **Source** |
+|--------------|------------|
+| **Austin**   | [Austin Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5/about_data) |
+| **Chicago**  | [Chicago Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if/about_data) |
+| **NYC**      | [NYC Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data) |
+| **Montgomery** | [Montgomery Data](https://data.montgomerycountymd.gov/Public-Safety/Crash-Reporting-Incidents-Data/bhju-22kf/about_data) |
 
-Key challenges included:
-- **Different schemas** across datasets.
-- **Varying data formats** and missing values.
-- **Ensuring uniformity** while preserving critical information.
-
----
 
 ## **Business Requirements**
-The project aims to answer key business questions related to **motor vehicle collisions**, **injury patterns**, and **risk factors**:
 
 ### **1. Accident Statistics**
-- **Total Accidents**: Breakdown by city (NYC, Austin, Chicago).
+- **Total Accidents**: Breakdown by city (NYC, Austin, Chicago, Montgomery).
 - **High-Risk Areas**: Identify **top 3 accident-prone locations** per city.
 
 ### **2. Injury & Pedestrian Involvement**
@@ -63,67 +37,55 @@ The project aims to answer key business questions related to **motor vehicle col
 
 ### **4. Motorist & Fatality Analysis**
 - **Motorist Injuries & Fatalities** (overall and city-level breakdown).
-- **Top 5 Deadliest Locations** in all cities.
+- **Top 5 Locations with most fatal accidents** in all cities.
 - **Pedestrian vs. Motorist Fatality Comparison**.
 
 ### **5. Contributing Factors**
-- **Most Common Causes of Accidents**:
-  - Driver errors (speeding, DUI, distracted driving).
-  - Environmental and road conditions.
-
----
+- **Most Common Causes of Accidents**
 
 ## **Project Steps**
 ### **1. Understanding the Dataset & Business Requirements**
 - Examined all datasets to understand schema variations.
-- Analyzed **business questions** to determine required transformations.
+- Analyzed **business questions** to determine required transformations and prepared a plan of execution.
 
 ### **2. Data Profiling & As-Is Staging**
 - **Alteryx** was used to perform **data profiling**, identifying:
   - **Data types, missing values, and anomalies**.
 - **Azure Data Factory (ADF)** was used to stage raw data.
 - Implemented the **Medallion Architecture**:
-  - **Bronze Layer**: Raw source files stored as-is.
-  - **Silver Layer**: Converted **Parquet files** stored in Snowflake.
+  - **Bronze Layer**: Ingested raw CSV and TSV files without modifications.
+  - **Silver Layer**: Converted the source files to **Parquet format**.
+  - **Gold Layer**: Converted the Parquet data and stored them in Snowflake as tables.
 
-### **3. Data Transformation using Talend**
+### **3. Data Transformation**
 - Created a **Mapping Document**:
-  - Identified **common fields** across datasets.
-  - Mapped transformations to **ensure schema consistency**.
+  - Identified fields required to address business requirements.
+  - Mapped transformations across datasets to **ensure schema consistency**.
 - **Talend** was used for data transformation:
-  - **Cleansing operations**:
-    - Filling missing values (**-9999** for numerical, **‘NA’** for text).
-    - Standardizing text capitalization and decimal precision.
-  - **TMAP transformations**:
-    - Merging and restructuring columns.
-    - Formatting dates and categorical values.
-  - Combined all datasets into a **final staging table** in Snowflake.
+  - Filling missing values (**-9999** for numerical, **‘NA’** for text).
+  - Extracted meaningful attributes by splitting single columns into multiple and merging related columns as per mapping document
+  - Removed junk text and irrelevant characters using regex patterns to enhance data quality.
+  - Capitalized all text for consistency, applied uniform decimal precision, and standardized timestamps to the desired format.
+  - Adjusted column values with zero-padding or truncation to ensure uniformity across datasets.
+  - Derived additional attributes to meet business requirements through calculated fields.
+  - Added audit columns for traceability.
+  - Loaded the transformed data into a final staging table in Snowflake, ensuring readiness for dimensional modeling.
 
 ### **4. Dimensional Modeling**
 - Designed a **dimensional model** using **ER Studio**:
   - Created **Fact & Dimension tables** in a **Snowflake Schema**.
-  - Implemented a **Slowly Changing Dimension (SCD) Type 2**.
+  - Implemented **Slowly Changing Dimension (SCD) Type 2**, as per business logic.
 
 ### **5. Loading of Data into Facts & Dimensions**
-- **Talend** loaded transformed data into:
-  - **Fact tables** (e.g., Accidents, Injuries).
-  - **Dimension tables** (e.g., Location, Time, Vehicles).
-- **Final data stored in Snowflake** for reporting.
+- Loaded data into the dimensional model in Snowflake using Talend.
+- Added audit columns to ensure data traceability.
 
 ### **6. Visualization & Dashboard Design**
 - **Power BI & Tableau Dashboards**:
+  -  Focused on creating dashboards that are simple, clean, and highly functional for end-users.
   - **Title & Filters** positioned at the **top** for usability.
   - **KPIs placed prominently** in the top-left.
-  - **Consistent design across both platforms** for ease of use.
+  - Ensured Tableau and Power BI dashboards mirrored each other in design, enabling business partners to switch between platforms seamlessly based on their convenience.
 - **Geospatial Mapping**:
   - Plotted latitude/longitude of accidents for location analysis.
 
----
-
-## **Conclusion**
-This project successfully built a scalable **ETL pipeline** for analyzing motor vehicle collisions across multiple cities. The structured **dimensional model** and **interactive dashboards** enable deeper insights into **accident trends, high-risk areas, and injury patterns**, supporting **data-driven decision-making** for public safety.
-
----
-
-🚀 **Technologies Used:** Alteryx | Talend | ADF | Azure | Snowflake | ER Studio | Power BI | Tableau  
-📊 **Key Concepts:** Data Integration | ETL Pipeline | Dimensional Modeling | Slowly Changing Dimensions | Big Data Processing  
