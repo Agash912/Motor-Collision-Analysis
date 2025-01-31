@@ -9,38 +9,30 @@ Tools Used: Alteryx, Microsoft Excel, Azure Data Factory, Talend, ER Studio, Sno
 ## Datasets Overview
 The analysis is based on publicly available motor vehicle collision datasets from city government sources:  
 
+
 | City      | Source |
 |--------------|------------|
-| Austin   | [Austin Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5/about_data) |
-| Chicago  | [Chicago Data](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if/about_data) |
-| NYC      | [NYC Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data) |
-| Montgomery | [Montgomery Data](https://data.montgomerycountymd.gov/Public-Safety/Crash-Reporting-Incidents-Data/bhju-22kf/about_data) |
+| Austin   | <a href="https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5/about_data" target="_blank">Austin Data</a> |
+| Chicago  | <a href="https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if/about_data" target="_blank">Chicago Data</a> |
+| NYC      | <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data" target="_blank">NYC Data</a> |
+| Montgomery | <a href="https://data.montgomerycountymd.gov/Public-Safety/Crash-Reporting-Incidents-Data/bhju-22kf/about_data" target="_blank">Montgomery Data</a> |
 
 
 ## Business Requirements
 
-### 1. Accident Statistics
 - Total Accidents: Breakdown by city (NYC, Austin, Chicago, Montgomery).
 - High-Risk Areas: Identify top 3 accident-prone locations per city.
-
-### 2. Injury & Pedestrian Involvement
 - Injury Analysis:
   - Number of accidents that resulted only in injuries.
   - Reports available overall and by city.
 - Pedestrian Accidents (Chicago-specific analysis).
-
-### 3. Time-Based Accident Trends
-- Seasonality Trends: When do most accidents occur (Winter, Spring, Summer, Fall)?
+- Seasonality Trends: When do most accidents occur (Winter, Spring, Summer, Fall)
 - Time Analysis:
   - Time of day (Morning, Afternoon, Night).
   - Day of the week, Weekday vs. Weekend trends.
-
-### 4. Motorist & Fatality Analysis
 - Motorist Injuries & Fatalities (overall and city-level breakdown).
 - Top 5 Locations with most fatal accidents in all cities.
 - Pedestrian vs. Motorist Fatality Comparison.
-
-### 5. Contributing Factors
 - Most Common Causes of Accidents
 
 ## Project Steps
